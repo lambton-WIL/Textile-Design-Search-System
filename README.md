@@ -15,13 +15,13 @@ I undertook contract that helped Salasar Fashion, a pioneer in Textile Industry 
 
 ## Installation
 1. Clone the repository from GitHub:
-   '''bash
-   git clone https://github.com/harsh-sutariya/design-search.git
-   '''
+   ```bash
+   git clone https://github.com/harsh-sutariya/design_search.git
+   ```
 2. Install the required dependencies using pip:
-   '''bash
+   ```bash
    pip install -r requirements.txt
-   '''
+   ```
 
 ## Example
 To demonstrate the functionality of the Textile Design Search System, follow these steps:
