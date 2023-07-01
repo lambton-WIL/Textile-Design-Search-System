@@ -2,37 +2,19 @@
 <html>
 <head>
     <title>Image Indexing</title>
-    <script>
-        function indexImages() {
-            var loader = document.getElementById("loader");
-            var button = document.getElementById("index-button");
-            var progress = document.getElementById("progress");
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
-            // Hide the index button and display the loader
-            button.style.display = "none";
-            loader.style.display = "block";
-
-            // Start the indexing process by making an AJAX request to the server
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/index", true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Hide the loader and display the completion message
-                    loader.style.display = "none";
-                    progress.innerHTML = "Indexing completed!";
-                }
-            };
-            xhr.send();
-        }
-    </script>
 </head>
 <body>
-    <h1>Image Indexing</h1>
-    <button id="index-button" onclick="indexImages()">Index Images</button>
-    <div id="loader" style="display: none;">
-        <p>Indexing in progress...</p>
-        <div class="spinner"></div>
+    <div class="container">
+        <h1>Image Indexing</h1>
+        <button id="index-button" onclick="indexImages()">Index Images</button>
+        <div id="loader" style="display: none;">
+            <p>Indexing in progress...</p>
+            <div class="spinner"></div>
+        </div>
+        <p id="progress"></p>
     </div>
-    <p id="progress"></p>
 </body>
 </html>

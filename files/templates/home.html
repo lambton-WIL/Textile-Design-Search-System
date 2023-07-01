@@ -2,19 +2,28 @@
 <html>
 <head>
     <title>Design Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
 <body>
-    <h1>Welcome to Design Search</h1>
-    <p>Upload a design to perform a search:</p>
-    <form action="/search" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="number" name="limit" placeholder="Enter limit" value="10">
-        <input type="submit" value="Search">
-    </form>  
+    <div class="container">
+        <h1>Welcome to Harsh's Design Search Project</h1>
+        <p>Upload a design to perform a search:</p>
+        <form action="/search" method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="upload-wrapper">
+                <input type="file" name="file" accept="image/*" id="upload-file" required>
+                <label for="upload-file" class="upload-label">Choose File</label>
+            </div>
+            <div class="limit-wrapper">
+                <label for="limit" class="limit-label">Number of Similar Images:</label>
+                <input type="number" name="limit" id="limit" placeholder="Enter limit" value="10" class="limit-input">
+            </div>
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        <form action="/index" method="POST" class="index-form">
+            <button type="submit" class="index-button">Index Images</button>
+        </form>
+    </div>
     
-    <form action="/index" method="POST">
-        <input type="submit" value="Index Images">
-    </form>
 </body>
 </html>
-

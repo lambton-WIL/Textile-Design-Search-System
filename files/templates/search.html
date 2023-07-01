@@ -2,13 +2,16 @@
 <html>
 <head>
     <title>Design Search - Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Perform Design Search</h1>
-    <form action="/search" method="POST" enctype="multipart/form-data">
-        <input type="file" name="query_image" accept="image/*" required>
-        <br><br>
-        <input type="submit" value="Search">
-    </form>
+    <div class="container">
+        <h1>Perform Design Search</h1>
+        <form action="/search" method="POST" enctype="multipart/form-data" class="search-form">
+            <input type="file" name="query_image" accept="image/*" required>
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
 </body>
 </html>
+

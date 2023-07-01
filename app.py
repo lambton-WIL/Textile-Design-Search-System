@@ -100,7 +100,7 @@ def get_indexed_images(index):
 @app.route('/update_index')
 def update_index():
     #dataset = 'files/static/dataset'
-    dataset = 'files/static/dataset'
+    dataset = 'files/static/dataset/'
     index = 'files/index.csv'
 
     indexed_images = get_indexed_images(index)
@@ -142,7 +142,7 @@ def search():
 
 @app.route('/index', methods=['POST'])
 def index():
-    dataset = 'files/static/dataset'
+    dataset = 'files/static/dataset/'
     index = 'files/index.csv'
 
     index_images(dataset, index)
