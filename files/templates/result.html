@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        /* Define table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Define image styles */
+        .result-image {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Design</th>
+                <th>Distance</th>
+                <th>Path</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><img src="{{ url_for('static', filename=result[1].replace('\\', '/')) }}" alt="Result Image" class="result-image"></td>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

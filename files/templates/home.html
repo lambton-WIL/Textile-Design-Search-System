@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Design Search</title>
+</head>
+<body>
+    <h1>Welcome to Design Search</h1>
+    <p>Upload a design to perform a search:</p>
+    <form action="/search" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="number" name="limit" placeholder="Enter limit" value="10">
+        <input type="submit" value="Search">
+    </form>  
+    
+    <form action="/index" method="POST">
+        <input type="submit" value="Index Images">
+    </form>
+</body>
+</html>
+
