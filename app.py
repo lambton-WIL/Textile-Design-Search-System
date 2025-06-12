@@ -71,9 +71,10 @@ class Searcher:
 
 def index_images(dataset, index):
     cd = ColorDescriptor((8, 12, 3))
+    image_paths = glob.glob(dataset + "/*.jpg") + glob.glob(dataset + "/*.png")
     with open(index, "a") as output:  # Use "a" mode to append to the existing index file
-        for imagePath in glob.glob(dataset + "/*.jpg"):
-            imageID = imagePath[imagePath.rfind("/") + 1:]
+        for imagePath in image_paths:
+            imageID = "dataset/" + imagePath[imagePath.rfind("/") + 1:]
             # Check if the image is already indexed by searching for its ID in the index file
             if imageID not in get_indexed_images(index):
                 try:
