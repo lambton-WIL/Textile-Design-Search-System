@@ -6,6 +6,7 @@ import glob
 import csv
 import os
 import time
+from skimage.feature import local_binary_pattern
 
 app = Flask(__name__, template_folder='files/templates', static_folder='files/static')
 
@@ -36,6 +37,15 @@ class ColorDescriptor:
 
         hist = self.histogram(image, ellipMask)
         features.extend(hist)
+        print("Feature vector length after color histogram:", len(features))  # Add this line
+        
+        # Texture features (LBP)
+        texture = self.texture_features(image)
+        print("Texture features:", texture)  # Add this line
+
+        features.extend(texture)
+        print("Feature vector length:", len(features))  # Add this line
+
 
         return features
 
@@ -44,12 +54,21 @@ class ColorDescriptor:
         hist = cv2.normalize(hist, 0, 255, cv2.NORM_MINMAX).flatten()
 
         return hist
+    
+    # Function to extract texture features using Local Binary Patterns (LBP)
+    def texture_features(self, image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        lbp = local_binary_pattern(gray, P=8, R=1, method="uniform")
+        (hist, _) = np.histogram(lbp.ravel(), bins=np.arange(0, 59))
+        hist = hist.astype("float")
+        hist /= (hist.sum() + 1e-7)
+        return hist
 
 class Searcher:
     def __init__(self, indexPath):
         self.indexPath = indexPath
 
-    def search(self, queryFeatures, limit=10):
+    def search(self, queryFeatures, limit=10, distance_treshold=500):
         results = {}
 
         with open(self.indexPath) as f:
@@ -57,7 +76,8 @@ class Searcher:
             for row in reader:
                 features = [float(x) for x in row[1:]]
                 d = self.chi2_distance(features, queryFeatures)
-                results[row[0]] = d
+                if d < distance_treshold:
+                    results[row[0]] = d
             f.close()
 
         results = sorted([(v, k) for (k, v) in results.items()])
@@ -137,9 +157,10 @@ def search():
     results = search_images(file_path, index, limit)
 
     # Remove the temporary uploaded file
-    os.remove(file_path)
+    # os.remove(file_path)
+    query_image_path = file_path.replace('files/static/', '')
 
-    return render_template('result.html', results=results)
+    return render_template('result.html', results=results, query_image = query_image_path)
 
 @app.route('/index', methods=['POST'])
 def index():
@@ -151,14 +172,13 @@ def index():
     return 'Image indexing completed.'
 
 
-def search_images(query, index, limit=10):
+def search_images(query, index, limit=10, threshold=500):
     cd = ColorDescriptor((8, 12, 3))
     queryImage = cv2.imread(query)
     queryFeatures = cd.describe(queryImage)
 
     searcher = Searcher(index)
-    results = searcher.search(queryFeatures, limit=limit)
-
+    results = searcher.search(queryFeatures, limit=limit, distance_treshold=threshold)
     return results
 
 if __name__ == '__main__':
