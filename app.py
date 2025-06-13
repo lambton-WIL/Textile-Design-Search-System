@@ -43,7 +43,7 @@ class ColorDescriptor:
         texture = self.texture_features(image)
         print("Texture features:", texture)  # Add this line
 
-        features.extend(texture)
+        features.extend(0.5 * texture)
         print("Feature vector length:", len(features))  # Add this line
 
 
@@ -121,11 +121,13 @@ def get_indexed_images(index):
 @app.route('/update_index')
 def update_index():
     #dataset = 'files/static/dataset'
+    cd = ColorDescriptor((8, 12, 3))
     dataset = 'files/static/dataset/'
     index = 'files/index.csv'
 
     indexed_images = get_indexed_images(index)
-    for imagePath in glob.glob(dataset + "/*.jpg"):
+    image_paths = glob.glob(dataset + "/*.jpg") + glob.glob(dataset + "/*.png")
+    for imagePath in image_paths:
         imageID = imagePath[imagePath.rfind("/") + 1:]
         if imageID not in indexed_images:
             # New file detected, index it
