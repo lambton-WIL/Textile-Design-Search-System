@@ -3,31 +3,49 @@
 <head>
     <title>Search Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 </head>
 <body>
     <div class="container">
-        <h1>Search Results</h1>
-        <table class="results-table">
-            <thead>
-                <tr>
-                    <th>Sr. No.</th>
-                    <th>Design</th>
-                    <th>Distance</th>
-                    <th>Path</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in results %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td><img src="{{ url_for('static', filename=result[1].replace('\\', '/')) }}" alt="Result Image" class="result-image"></td>
-                    <td>{{ result[0] }}</td>
-                    <td>{{ result[1] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
+            <!--Sticky on the side div-->
+            <div class="col-md-3 uploaded-image-container">
+                <h3>Uploaded Design</h1>
+                {% if query_image %}
+                <img src="{{ url_for('static', filename=query_image.replace('\\', '/')) }}" alt="Uploaded Design" class="uploaded-image">
+                {% else %}
+                <p>No design uploaded.</p>
+                {% endif %}
+            </div>
+            <!--Results div-->
+            <div class="col-md-8 results-container">
+                <h1>Search Results</h1>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Design</th>
+                            <th>Distance</th>
+                            <th>Path</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><img src="{{ url_for('static', filename=result[1].replace('\\', '/')) }}" alt="Result Image" class="result-image"></td>
+                            <td>{{ result[0] }}</td>
+                            <td>{{ result[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
 </html>
