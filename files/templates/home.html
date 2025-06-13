@@ -18,6 +18,10 @@
                 <label for="limit" class="limit-label">Number of Similar Images:</label>
                 <input type="number" name="limit" id="limit" placeholder="Enter limit" value="10" class="limit-input">
             </div>
+            <div class="threshold-wrapper">
+                <label for="threshold" class="threshold-label">Distance Threshold(0-1000):</label>
+                <input type="number" name="threshold" id="limit" placeholder="Enter threshold(0-1000)" min="0" max="1000" value="500" class="threshold-input">
+            </div>
             <button type="submit" class="search-button">Search</button>
         </form>
         <form action="/index" method="POST" class="index-form">
