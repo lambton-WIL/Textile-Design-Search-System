@@ -8,7 +8,7 @@ The Textile Design Search System utilizes advanced image processing techniques a
 I undertook contract that helped Salasar Fashion, a pioneer in Textile Industry to help them search similar textile designs from their root design database of nearly 2TB size, and 1,00,000+ images.
 
 ## Prerequisites
-* Python 3.7 or higher
+* Python 3.7 upto 3.10
 * Flask web framework
 * OpenCV library
 * NumPy library
@@ -18,7 +18,15 @@ I undertook contract that helped Salasar Fashion, a pioneer in Textile Industry 
    ```bash
    git clone https://github.com/harsh-sutariya/design_search.git
    ```
-2. Install the required dependencies using pip:
+2. Create a virtual environment
+   ```
+   py -m venv venv
+   ```
+3. Activate the virtual 
+   ```bash
+   venv/Scripts/activate
+   ```
+4. Install the required dependencies using pip:
    ```bash
    pip install -r requirements.txt
    ```
