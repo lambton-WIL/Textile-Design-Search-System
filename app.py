@@ -147,6 +147,7 @@ def search():
     # Get the uploaded file from the request
     uploaded_file = request.files['file']
     limit = int(request.form['limit'])
+    threshold = int(request.form['threshold'])
     index = 'files/index.csv'
 
     # Save the uploaded file to a temporary location
@@ -154,7 +155,7 @@ def search():
     uploaded_file.save(file_path)
 
     # Perform the image search
-    results = search_images(file_path, index, limit)
+    results = search_images(file_path, index, limit, threshold)
 
     # Remove the temporary uploaded file
     # os.remove(file_path)
@@ -178,6 +179,7 @@ def search_images(query, index, limit=10, threshold=500):
     queryFeatures = cd.describe(queryImage)
 
     searcher = Searcher(index)
+    print("Threshold:", threshold)  # Add this line
     results = searcher.search(queryFeatures, limit=limit, distance_treshold=threshold)
     return results
 
