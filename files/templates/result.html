@@ -40,6 +40,11 @@
                             <td>{{ result[1] }}</td>
                         </tr>
                         {% endfor %}
+                        {%if not results %}
+                        <tr>
+                            <td colspan="4">No results found.</td>
+                        </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
